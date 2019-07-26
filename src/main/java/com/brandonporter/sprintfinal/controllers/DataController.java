@@ -2,8 +2,12 @@ package com.brandonporter.sprintfinal.controllers;
 
 import com.brandonporter.sprintfinal.models.Author;
 import com.brandonporter.sprintfinal.models.Book;
+import com.brandonporter.sprintfinal.models.ErrorDetail;
 import com.brandonporter.sprintfinal.services.AuthorService;
 import com.brandonporter.sprintfinal.services.BookService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +25,11 @@ public class DataController {
     @Autowired
     private AuthorService authorService;
 
-    @PreAuthorize("hasAuthority('ROLE_DATA')")
+    @ApiOperation(value = "Updates book id with body book", consumes = "Book",response=void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code=404,message = "Book Not Found",response = ErrorDetail.class),
+            @ApiResponse(code=500, message="Error", response = ErrorDetail.class)
+    })
     @PutMapping(value = "/books/{id}",
                 produces = {"application/json"},
                 consumes = {"application/json"})
@@ -30,6 +38,11 @@ public class DataController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Create a book")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Error Creating Book", response = ErrorDetail.class),
+            @ApiResponse(code=201,message = "Book Created", response=void.class)
+    })
     @PostMapping(value = "/books/{bookid}/authors/{authorid}")
     public ResponseEntity<?> updateAuthor(@PathVariable long bookid, @PathVariable long authorid){
         Author author=authorService.findAuthorById(authorid);
@@ -38,9 +51,14 @@ public class DataController {
         book.getAuthors().add(author);
         book=bookService.save(book);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Delete a book")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Error Creating Book", response = ErrorDetail.class),
+            @ApiResponse(code=404,message="Book Not Found", response = ErrorDetail.class)
+    })
     @DeleteMapping(value = "/books/{id}")
     public ResponseEntity<?> deleteBook(@PathVariable long id){
         bookService.delete(id);

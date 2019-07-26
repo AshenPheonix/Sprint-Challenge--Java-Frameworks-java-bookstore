@@ -4,6 +4,7 @@ import com.brandonporter.sprintfinal.models.Author;
 import com.brandonporter.sprintfinal.models.Book;
 import com.brandonporter.sprintfinal.services.AuthorService;
 import com.brandonporter.sprintfinal.services.BookService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ public class RootController {
     @Autowired
     private AuthorService authorService;
 
+    @ApiOperation(value = "Returns all books",responseContainer = "List")
     @GetMapping(value = "/books",
                 produces={"application/json"})
     public ResponseEntity<?> allBooks(){
@@ -29,6 +31,7 @@ public class RootController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Returns all authors",responseContainer = "List")
     @GetMapping(value = "/authors",
                 produces = {"application/json"})
     public ResponseEntity<?> allAuthors(){
