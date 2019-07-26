@@ -1,7 +1,6 @@
 package com.brandonporter.sprintfinal.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,9 +10,9 @@ import java.util.List;
 public class Book extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long bookidid;
+    private long bookid;
 
-    private String booktitle;
+    private String title;
     private String ISBN;
     private int copy;
 
@@ -26,25 +25,25 @@ public class Book extends Auditable{
     }
 
     public Book(String booktitle, String ISBN, int copy) {
-        this.booktitle = booktitle;
+        this.title = booktitle;
         this.ISBN = ISBN;
         this.copy = copy;
     }
 
-    public long getBookidid() {
-        return bookidid;
+    public long getBookid() {
+        return bookid;
     }
 
-    public void setBookidid(long bookidid) {
-        this.bookidid = bookidid;
+    public void setBookid(long bookid) {
+        this.bookid = bookid;
     }
 
-    public String getBooktitle() {
-        return booktitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBooktitle(String booktitle) {
-        this.booktitle = booktitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getISBN() {

@@ -12,11 +12,11 @@ public class Author extends Auditable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long authorid;
 
-    private String  lastname,
-                    firstname;
+    private String  lname,
+                    fname;
 
     @ManyToMany
-    @JoinTable(name="bookauthors",
+    @JoinTable( name="wrote",
                 joinColumns = {@JoinColumn(name="authorid")},
                 inverseJoinColumns = {@JoinColumn(name = "bookid")}
               )
@@ -27,8 +27,8 @@ public class Author extends Auditable {
     }
 
     public Author(String lastname, String firstname) {
-        this.lastname = lastname;
-        this.firstname = firstname;
+        this.lname = lastname;
+        this.fname = firstname;
     }
 
     public long getAuthorid() {
@@ -39,20 +39,20 @@ public class Author extends Auditable {
         this.authorid = authorid;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLname() {
+        return lname;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFname() {
+        return fname;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFname(String fname) {
+        this.fname = fname;
     }
 
     public List<Book> getBooks() {

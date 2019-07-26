@@ -41,8 +41,8 @@ public class BookServiceImpl implements BookService{
     public Book save(Book book) {
         Book data=new Book();
 
-        if (book.getBooktitle()!=null){
-            data.setBooktitle(book.getBooktitle());
+        if (book.getTitle()!=null){
+            data.setTitle(book.getTitle());
         }
         if(book.getISBN()!=null){
             data.setISBN(book.getISBN());
@@ -63,8 +63,8 @@ public class BookServiceImpl implements BookService{
     public Book update(Book book, long id) {
         Book copy=bookRepo.findById(id).orElseThrow(()->new ResourceNotFoundException(Long.toString(id)));
 
-        if (book.getBooktitle()!=null){
-            copy.setBooktitle(book.getBooktitle());
+        if (book.getTitle()!=null){
+            copy.setTitle(book.getTitle());
         }
         if(book.getISBN()!=null){
             copy.setISBN(book.getISBN());

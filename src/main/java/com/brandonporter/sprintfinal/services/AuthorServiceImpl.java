@@ -1,5 +1,6 @@
 package com.brandonporter.sprintfinal.services;
 
+import com.brandonporter.sprintfinal.exceptions.ResourceNotFoundException;
 import com.brandonporter.sprintfinal.models.Author;
 import com.brandonporter.sprintfinal.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,10 @@ public class AuthorServiceImpl implements AuthorService {
         List<Author> temp = new ArrayList<>();
         authorrepo.findAll().iterator().forEachRemaining(temp::add);
         return temp;
+    }
+
+    @Override
+    public Author findAuthorById(long id) {
+        return authorrepo.findById(id).orElseThrow(()->new ResourceNotFoundException(Long.toString(id)));
     }
 }
